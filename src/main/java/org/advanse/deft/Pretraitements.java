@@ -16,8 +16,8 @@ public class Pretraitements {
   
     /* the path to access resources */
     //static String resourcePath = "//home//emonet//java_workspace//DEFT//ressources//";
-    static String resourcePath = "";
-    //static String resourcePath = "ressources";
+    //static String resourcePath = "";
+    static String resourcePath = "ressources//";
     
     static String tweet = "non je n'aime pas voilà mdr";
     
@@ -38,7 +38,7 @@ public class Pretraitements {
         String res;
         //Etape1 : Lire les argots
         String Argot[][] = new String[311][2];
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("argot.txt")));
+        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "argot.txt")));
         String line;
         int i=0;
         while ((line=r.readLine())!=null) {
