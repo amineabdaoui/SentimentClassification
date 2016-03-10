@@ -14,11 +14,16 @@ import java.util.StringTokenizer;
  */
 public class Pretraitements {
   
-  static String tweet = "non je n'aime pas voilà mdr";
-  
-  public static void main(String args[]) throws IOException {
-      System.out.println(ReplaceArgots(tweet));
-  }
+    /* the path to access resources */
+    //static String resourcePath = "//home//emonet//java_workspace//DEFT//ressources//";
+    static String resourcePath = "";
+    //static String resourcePath = "ressources";
+    
+    static String tweet = "non je n'aime pas voilà mdr";
+    
+    public static void main(String args[]) throws IOException {
+        System.out.println(ReplaceArgots(tweet));
+    }
     
     private static final String[] sep = {" ", "\\?", "!", ",", ";", ":", "\\.", "\\(","\\)","\\{","\\}","\\+","=","'","\"","0","1","2","3","4","5","6","7","8","9"};
     
@@ -33,7 +38,7 @@ public class Pretraitements {
         String res;
         //Etape1 : Lire les argots
         String Argot[][] = new String[311][2];
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//argot.txt")));
+        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("argot.txt")));
         String line;
         int i=0;
         while ((line=r.readLine())!=null) {
@@ -99,7 +104,7 @@ public class Pretraitements {
         boolean Sepa=false, Nega=false;
         String s, tok;
         ArrayList<String> Neg = new ArrayList<>();
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Negations.txt")));
+        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
         StringTokenizer st = new StringTokenizer(tweet, " \n         .,;:'‘’\"?[]!-_\\/“<>$&®´…«»1234567890", true);
@@ -132,7 +137,7 @@ public class Pretraitements {
         boolean Sepa=false, Nega=false;
         String s, tok, pNeg="neg";
         ArrayList<String> Neg = new ArrayList<>();
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Negations.txt")));
+        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
         StringTokenizer st = new StringTokenizer(tweet, " \n         .,;:'‘’\"()?[]!-_\\/“<>$&®´…«»1234567890", true);
@@ -165,7 +170,7 @@ public class Pretraitements {
         boolean Sepa=false, Nega=false;
         String s, sn, tok, pNeg="neg";
         ArrayList<String> Neg = new ArrayList<>();
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Negations.txt")));
+        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
         StringTokenizer st = new StringTokenizer(tweet, " \n         .,;:'‘’\"()?[]!-_\\/“<>$&®´…«»1234567890", true);

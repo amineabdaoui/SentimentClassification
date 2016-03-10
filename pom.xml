@@ -14,6 +14,16 @@
     
     <build>
         <finalName>deft</finalName>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/ressources</directory>
+                <includes>
+                    <include>argot.txt</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
     
     <dependencies>
