@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -17,6 +18,9 @@ public class Pretraitements {
     /* the path to access resources */
     //static String resourcePath = "//home//emonet//java_workspace//DEFT//ressources//";
     static String resourcePath = "";
+    
+    // If you want to access the resources directly in the jar
+    static Boolean resourceInJar = true;
     //static String resourcePath = "ressources";
     
     static String tweet = "non je n'aime pas voilà mdr";
@@ -31,6 +35,7 @@ public class Pretraitements {
      * Remplace les mots d'argots par le texte correspondant
      * 
      * @param tweet
+     * @param path
      * @return
      * @throws IOException 
      */
@@ -38,7 +43,14 @@ public class Pretraitements {
         String res;
         //Etape1 : Lire les argots
         String Argot[][] = new String[311][2];
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("argot.txt")));
+        BufferedReader r = null;
+        if (resourceInJar == true) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream in = classLoader.getResourceAsStream("argot.txt");
+            r = new BufferedReader(new InputStreamReader(in));
+        } else {
+            r = new BufferedReader(new InputStreamReader(new FileInputStream("argot.txt")));   
+        }
         String line;
         int i=0;
         while ((line=r.readLine())!=null) {
