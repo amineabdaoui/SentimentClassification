@@ -1,3 +1,4 @@
+package org.advanse.deft;
 
 import weka.attributeSelection.GainRatioAttributeEval;
 import weka.attributeSelection.InfoGainAttributeEval;

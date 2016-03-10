@@ -1,3 +1,4 @@
+package org.advanse.deft;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -12,6 +13,12 @@ import java.util.StringTokenizer;
  * @author amin.abdaoui
  */
 public class Pretraitements {
+  
+  static String tweet = "non je n'aime pas voilà mdr";
+  
+  public static void main(String args[]) throws IOException {
+      System.out.println(ReplaceArgots(tweet));
+  }
     
     private static final String[] sep = {" ", "\\?", "!", ",", ";", ":", "\\.", "\\(","\\)","\\{","\\}","\\+","=","'","\"","0","1","2","3","4","5","6","7","8","9"};
     

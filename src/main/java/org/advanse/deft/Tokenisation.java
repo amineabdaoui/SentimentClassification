@@ -1,3 +1,4 @@
+package org.advanse.deft;
 
 import java.io.File;
 import weka.core.Instances;
