@@ -22,6 +22,13 @@ public class Pretraitements {
     
     private static final String[] sep = {" ", "\\?", "!", ",", ";", ":", "\\.", "\\(","\\)","\\{","\\}","\\+","=","'","\"","0","1","2","3","4","5","6","7","8","9"};
     
+    /**
+     * Remplace les mots d'argots par le texte correspondant
+     * 
+     * @param tweet
+     * @return
+     * @throws IOException 
+     */
     public static String ReplaceArgots(String tweet) throws IOException{
         String res;
         //Etape1 : Lire les argots
@@ -45,6 +52,12 @@ public class Pretraitements {
         return res;
     }
     
+    /**
+     * Remplace les séparateurs par un espace
+     * 
+     * @param tweet
+     * @return 
+     */
     public static String ReplaceSep(String tweet){
         String newTweet="";
         StringTokenizer st = new StringTokenizer(tweet, " \n         .,;:'‘’\"()?[]!-_\\/“<>$&®´…«»1234567890", false);
@@ -52,6 +65,12 @@ public class Pretraitements {
         return newTweet;
     }
     
+    /**
+     * Remplace les caractères allongés (si se répéte plus de 2 fois)
+     * 
+     * @param tweet
+     * @return 
+     */
     public static String ReplaceElongatedCharacters(String tweet){
         String result="";
         char c1=' ';
