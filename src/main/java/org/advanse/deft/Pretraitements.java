@@ -43,6 +43,8 @@ public class Pretraitements {
         //Etape1 : Lire les argots
         String Argot[][] = new String[311][2];
         BufferedReader r = null;
+        
+        // Check if it has to access the resource directly in the jar file (for war deployment)
         if (resourceInJar == true) {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             InputStream in = classLoader.getResourceAsStream("argot.txt");
