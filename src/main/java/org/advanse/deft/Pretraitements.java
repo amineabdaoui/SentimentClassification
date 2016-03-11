@@ -19,7 +19,7 @@ public class Pretraitements {
     static String resourcePath = "ressources//";
     
     // If you want to access the resources directly in the jar
-    static Boolean resourceInJar = true;
+    static Boolean resourceInJar = false;
     //static String resourcePath = "ressources";
     
     static String tweet = "non je n'aime pas voilà mdr";
