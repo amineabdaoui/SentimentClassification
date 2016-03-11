@@ -63,6 +63,7 @@ public class Pretraitements {
         for (int j=0; j<sep.length; j++) tweet=tweet.replaceAll(sep[j], " ");
         res=ReplaceElongatedCharacters(tweet);
         for (i=0; i<Argot.length; i++){
+            if (res.equals(Argot[i][0])) res=res.replaceAll(Argot[i][0], Argot[i][1]);
             if (res.contains(" "+Argot[i][0]+" ")) res=res.replaceAll(" "+Argot[i][0]+" ", " "+Argot[i][1]+" ");
             if (res.startsWith(Argot[i][0]+" ")) res=res.replaceAll(Argot[i][0]+" ", Argot[i][1]+" ");
             if (res.endsWith(" "+Argot[i][0])) res=res.replaceAll(" "+Argot[i][0], " "+Argot[i][1]);
