@@ -17,10 +17,10 @@ public class Pretraitements {
   
     /* the path to access resources */
     //static String resourcePath = "//home//emonet//java_workspace//DEFT//ressources//";
-    static String resourcePath = "";
+    static String resourcePath = "ressources//";
     
     // If you want to access the resources directly in the jar
-    static Boolean resourceInJar = true;
+    static Boolean resourceInJar = false;
     //static String resourcePath = "ressources";
     
     static String tweet = "non je n'aime pas voilà mdr";
@@ -49,7 +49,7 @@ public class Pretraitements {
             InputStream in = classLoader.getResourceAsStream("argot.txt");
             r = new BufferedReader(new InputStreamReader(in));
         } else {
-            r = new BufferedReader(new InputStreamReader(new FileInputStream("argot.txt")));   
+            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "argot.txt")));   
         }
         String line;
         int i=0;
