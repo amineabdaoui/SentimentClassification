@@ -1,0 +1,295 @@
+@tt : à tout à l'heure
+@tte : à tout à l'heure
+a tte : à tout à l'heure
+a12c4 : à un de ces quatre
+a2m1 : à demain
+2m1 : demain
+abs : absent
+ac : avec
+ak : avec
+aek : avec
+avc : avec
+av : avec
+ajd : aujourd'hui
+oj : aujourd'hui
+auj : aujourd'hui
+ajdh : aujourd'hui
+apl : à plus tard 
+a+ : à plus tard 
+@+ : à plus tard 
+ama : à mon avis
+amha : à mon humble avis
+arf : embarras 
+erf : embarras 
+att : attend
+atta : attend
+bb : bébé
+bp : beaucoup
+bcp : beaucoup
+bg : belle gueule
+bj : bien joué
+bjr : bonjour
+bsr : bonsoir
+biz : bises
+bsx : bises
+bx : bises
+bn : bonne nuit
+b8 : bonne nuit
+btg : bien ta grotte
+bvo : bravo
+cad : c'est-à-dire
+càd : c'est-à-dire
+cc : coucou
+couc : coucou
+cki : c'est qui '
+cmr : cimer 
+cmer : cimer 
+cb : combien 
+cmb : comme ma bite
+ctb : c'était bien
+ctup : c'est toujours un plaisir 
+cpg : ce n'est pas grave
+crari : style/genre 
+ctc : Crie de ton coeur
+dac : d'accord
+dacc : d'accord
+dak : d'accord
+dc : donc
+dcdr : décédé de rire
+déc-redéc : je me déconnecte et je me reconnecte
+déco-reco : je me déconnecte et je me reconnecte
+dmc : dans mon cul
+dtc : dans ton cul
+dsc : dans son cul
+dsl : désolé
+dtf : de toute façon
+ets : et ta soeur 
+fd'a : feux d'artifices
+fdg : foutage de gueule
+fdj : française des jeux
+fdp : fils de pute 
+ff : frag facile
+fpc : fais pas chier
+fr : français 
+ftg : ferme ta gueule
+gb : gros Bill 
+geta : Google est ton ami 
+gnih : air dubitatif
+gné : air dubitatif
+gp : gros pigeon 
+hg : histoire-géo
+hs : hors sujet
+hihihi : rire
+htkc : ah, je t'ai cassé
+jam : j'en ai marre
+jdc : je dis ça
+jdr : je ne dis rien
+jdçdr : je dis ça, je ne dis rien
+jmef : je m'en fous
+jpp : jean-pierre pernaut
+jre : je reviens
+je re : je reviens
+jrb : je ris beaucoup
+jta : je t'adore
+jtad : je t'adore
+jtdr : je t'adore
+jtd : je t'adore
+jtb : je t'embrasse bien 
+jtbf : je t'embrasse bien fort
+jtkc : je t'ai cassé
+jtl : je te love 
+jtlg : je te love grave
+jtm : je t'aime
+j'tm : je t'aime
+j't'<3 : je t'aime
+j'tmz : j'aime ta musique
+jts : je te suce
+K7 : cassette
+KC : cassé
+kestuf : Qu'est ce que tu fais '
+kdo : cadeau
+ki : qui
+kiss : bisou
+kikoo : coucou
+kikou : coucou
+kikoolol : kikoo et lol
+klr : clair
+clr : clair
+koi : quoi
+kwa : quoi
+koi29 : quoi de neuf
+koid9 : quoi de neuf
+lgtmp : longtemps
+lgtmps : longtemps
+lgt : longtemps
+loule : mort de rire 
+loul : mort de rire 
+lal : mort de rire 
+lale : mort de rire 
+lold : mort de rire 
+laule : mort de rire 
+lolilol : rire bébé
+lut : salut
+merki : merci
+mici : merci
+mci : merci
+miki : merci
+mdb : mec des blocs
+mdp : mot de passe
+mdr : mort de rire 
+mdrr : mort de rire 
+mouaha : rire
+mouhaha : rire
+mp : message personnel  
+mpm : même pas mal
+msg : message
+mtnt : maintenant
+mnt : maintenant
+mwa : moi
+moa : moi
+moua : moi
+ndc : nom de compte
+nna : non
+nan : non
+nop, nope : non
+noraj : ne sois pas rageux
+nrv : énervé
+ns : nous
+nspc : ne surtout pas cliquer 
+ntm : nique ta mère 
+nptk : n'importe quoi
+oki : ok
+ololz : rire ironique
+osef : on en fout
+osefdtl : on s'en fout de ta life
+osefdts : on s'en fout de ta street
+osefdtv : on s'en fout de ta vie
+oseb : on s'en balance 
+ouer : oui 
+ué : oui 
+uè : oui 
+mui : oui 
+moui : oui 
+wé : oui 
+woué : oui 
+yep : oui 
+ouep : oui 
+ouè : oui 
+oué : oui 
+oé : oui 
+oè : oui 
+ui : oui 
+wé : oui 
+uep : oui 
+vui : oui 
+voui : oui 
+yup : oui 
+ouai : oui 
+ouais : oui
+pb : problème
+pd : pédé
+pde : plein d'émotions
+pdt : pendant
+plop : salut
+plv : pour la vie
+ptdr : pété de rire
+pk : pourquoi
+prk : pourquoi
+pkoi : pourquoi
+pr : pour
+psk : parce que
+pck : parce que
+pq : parce que
+pke : parce que
+pcq : parce que
+p-t : peut-être
+p-e : peut-être
+pê : peut-être
+ppda : patrick poivre-Arvor
+pqtam : plus que tout au monde
+ptafqm : pas tout à fait quand même
+put1 : putain 
+pt1 : putain 
+tain : putain 
+p't : putain
+pv : en privé
+qq1 : quelqu'un 
+kk1 : quelqu'un 
+qqn : quelqu'un 
+qqun : quelqu'un 
+rab : rien à battre 
+raf : rien à foutre
+ras : rien à signaler 
+rav : rien à voir
+rep : répond 
+re : rebonjour 
+rgd : rire à gorge déployée
+rtva : raconte ta vie ailleurs 
+rtl : raconte ta vie ailleurs 
+slt : salut
+snn : sinon
+spd : sois pas dèg 
+spj : sois pas jaloux
+staive : c'est ta life 
+srx : sérieux
+fstoo : c'est tout aussi 
+stp : s'il te plaît
+svp : s'il vous plaît
+talc : topic à la con dans certains forums 
+tdf : tête de fion
+teuf : fête
+tfk : tu fais quoi '
+tg taggle : ta gueule 
+th : tokio hotel
+tgv : ta gueule victime/train grande vitesse
+tjrs : toujours
+tjs : toujours
+tjr : toujours
+tof : photo
+tkl : tranquille
+tkt : t'inquiète dans le sens de ne t'inquiète pas
+tlm : tout le monde
+tllmnt : tellement
+tllmt : tellement
+tmlt : tu me laisses tranquille
+tmtc : toi même tu sais
+tmts : toi même tu sais
+tpm : tu n'es pas marrant
+tps : temps
+tsé : tu sais
+tt : tout 
+tte : toute
+ts : tous 
+ttes : toutes
+twa : toi
+toa : toi
+toua : toi
+toé : toi
+vg : vos gueules
+voggle : vos gueules
+vmk : vous me manquez
+vmvc : vous même vous savez
+vmvs : vous même vous savez
+vnr : véner de énervé
+vost : version originale sous-titrée
+vostfr : version originale sous-titrée en français
+vtfe : va te faire enculer
+vtff : vas te faire foutre
+vtv : vis ta vie
+vouai : oui mais... 
+mouai : oui pas convaincu
+vs : vous
+wi : ouais
+wè : ouais
+wai : ouais
+wé : ouais
+Wtf : c'est quoi le problème
+weta : wikipédia est ton amie
+xlt : excellent
+xdr : explosé de rire
+xpdr : explosé de rire
+xpldr : explosé de rire
+yop : onomatopée servant de salut amical.
+zik : musique
++1 : Je souscris à ces propos. 
+-1 : Je n'adhère pas à ce qui vient d'être dit. 

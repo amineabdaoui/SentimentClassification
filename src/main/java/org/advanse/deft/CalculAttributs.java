@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.StringTokenizer;
+import static org.advanse.deft.ConstructionARFF.nbClassesFEEL;
 import org.annolab.tt4j.TreeTaggerException;
 
 
@@ -29,64 +31,131 @@ public class CalculAttributs {
     ArrayList<String> alPosDiko = new ArrayList<>();
     ArrayList<String> alNegDiko = new ArrayList<>();
     ArrayList<String> alNeuDiko = new ArrayList<>();
-    ArrayList<String> al1 = new ArrayList<>();
-    ArrayList<String> al2 = new ArrayList<>();
-    ArrayList<String> al3 = new ArrayList<>();
-    ArrayList<String> al4 = new ArrayList<>();
-    ArrayList<String> al5 = new ArrayList<>();
-    ArrayList<String> al6 = new ArrayList<>();
-    ArrayList<String> al7 = new ArrayList<>();
-    ArrayList<ArrayList<String>> al = new ArrayList<>();
+    ArrayList<String> alZ = new ArrayList<>();
+    ArrayList<ArrayList<String>> alZc = new ArrayList<>();
+    ArrayList<ArrayList<String>> alEmoFEEL = new ArrayList<>();
+    ArrayList<ArrayList<String>> alEmoAffects = new ArrayList<>();
+    ArrayList<ArrayList<String>> alEmoDiko = new ArrayList<>();
     private final ArrayList<String> Neg = new ArrayList<>();
     private LemmatiseurHandler lm;
     
     
-    public CalculAttributs() throws FileNotFoundException, IOException{
+    public CalculAttributs(String path) throws FileNotFoundException, IOException{
         String line;
+        BufferedReader r;
+        Properties prop = new Properties();
+	InputStream input = new FileInputStream(path);
+        prop.load(input);
         // FEEL
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//FEEL.txt")));
-        al.add(al1);al.add(al2);al.add(al3);al.add(al4);al.add(al5);al.add(al6);al.add(al7);
-        while ((line=r.readLine())!=null){
-            // Polarité
-            if (line.split(";")[2].equals("positive")) alPosFEEL.add(line.split(";")[1].toLowerCase());
-            else if (line.split(";")[2].equals("negative")) alNegFEEL.add(line.split(";")[1].toLowerCase());
-            // Emotion
-            for (int i=0; i<7; i++) if (line.split(";")[i+3].equals("1")) al.get(i).add(line.split(";")[1].toLowerCase());            
+        if (prop.getProperty("Lexicons.feelPol").equalsIgnoreCase("yes") || prop.getProperty("Lexicons.feelEmo").equalsIgnoreCase("yes")){
+            r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//FEEL.txt")));
+            for (int i=1;i<=7;i++) alEmoFEEL.add(new ArrayList<String>());
+            while ((line=r.readLine())!=null){
+                // Polarité
+                switch (line.split(";")[2]) {
+                    case "positive":
+                        alPosFEEL.add(line.split(";")[1].toLowerCase());
+                        break;
+                    case "negative":
+                        alNegFEEL.add(line.split(";")[1].toLowerCase());
+                        break;
+                }
+                // Emotion
+                for (int i=0; i<nbClassesFEEL; i++) if (line.split(";")[i+3].equals("1")) alEmoFEEL.get(i).add(line.split(";")[1].toLowerCase());            
+            }
+            r.close();
         }
-        r.close();
         // Polarimots
-        /*r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Polarimots.txt")));
-        while ((line=r.readLine())!=null){
-            if (line.split(";")[3].equals("positive")) alPosPolarimots.add(line.split(";")[1].toLowerCase());
-            else if (line.split(";")[3].equals("negative")) alNegPolarimots.add(line.split(";")[1].toLowerCase());
-            else if (line.split(";")[3].equals("neutre")) alNeuPolarimots.add(line.split(";")[1].toLowerCase());
+        if (prop.getProperty("Lexicons.polarimotsPol").equalsIgnoreCase("yes")){
+            r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Polarimots.txt")));
+            while ((line=r.readLine())!=null){
+                switch (line.split(";")[3]) {
+                    case "positive":
+                        alPosPolarimots.add(line.split(";")[1].toLowerCase());
+                        break;
+                    case "negative":
+                        alNegPolarimots.add(line.split(";")[1].toLowerCase());
+                        break;
+                    case "neutre":
+                        alNeuPolarimots.add(line.split(";")[1].toLowerCase());
+                        break;
+                }
+            }
+            r.close();
         }
-        r.close();*/
-        // Affects
-        r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Augustin-pol.txt")));
-        while ((line=r.readLine())!=null){
-            if (line.split(";")[1].equals("positive")) alPosAffects.add(line.split(";")[0].toLowerCase());
-            else if (line.split(";")[1].equals("negative")) alNegAffects.add(line.split(";")[0].toLowerCase());            
-            else if (line.split(";")[1].equals("neutre")) alNeuAffects.add(line.split(";")[0].toLowerCase());
+        // Affects_Pol
+        if (prop.getProperty("Lexicons.affectsPol").equalsIgnoreCase("yes")){
+            r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Augustin-pol.txt")));
+            while ((line=r.readLine())!=null){
+                switch (line.split(";")[1]) {
+                    case "positive":
+                        alPosAffects.add(line.split(";")[0].toLowerCase());
+                        break;
+                    case "negative":
+                        alNegAffects.add(line.split(";")[0].toLowerCase());
+                        break;
+                    case "neutre":
+                        alNeuAffects.add(line.split(";")[0].toLowerCase());
+                        break;
+                }
+            }
+            r.close();
         }
-        r.close();
+        // Affects_Emo
+        if (prop.getProperty("Lexicons.affectsEmo").equalsIgnoreCase("yes")){
+            r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Augustin-emo.txt")));
+            ArrayList<String> alClass = new ArrayList<>();
+            while ((line=r.readLine())!=null){
+                if (!alClass.contains(line.split(";")[1])) alClass.add(line.split(";")[1]);
+                alEmoAffects.get(alClass.indexOf(line.split(";")[1])).add(line.split(";")[0].toLowerCase());
+            }
+            r.close();
+        }
         // Diko
-        r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Diko.txt")));
-        while ((line=r.readLine())!=null){
-            if (line.split(";")[2].equals("positive")) alPosDiko.add(line.split(";")[1].toLowerCase());
-            else if (line.split(";")[2].equals("negative")) alNegDiko.add(line.split(";")[1].toLowerCase());
-            else if (line.split(";")[2].equals("neutre")) alNeuDiko.add(line.split(";")[1].toLowerCase());
+        if (prop.getProperty("Lexicons.dikoPol").equalsIgnoreCase("yes")){
+            r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Diko.txt")));
+            while ((line=r.readLine())!=null){
+                switch (line.split(";")[2]) {
+                    case "positive":
+                        alPosDiko.add(line.split(";")[1].toLowerCase());
+                        break;
+                    case "negative":
+                        alNegDiko.add(line.split(";")[1].toLowerCase());
+                        break;
+                    case "neutre":
+                        alNeuDiko.add(line.split(";")[1].toLowerCase());
+                        break;
+                }
+            }
+            r.close();
         }
-        r.close();
+        // Diko_Emo
+        if (prop.getProperty("Lexicons.dikoEmo").equalsIgnoreCase("yes")){
+            r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Diko-emo.txt")));
+            ArrayList<String> alC = new ArrayList<>();
+            while ((line=r.readLine())!=null){
+                if (!alC.contains(line.split(";")[1])) alC.add(line.split(";")[1]);
+                alEmoDiko.get(alC.indexOf(line.split(";")[1])).add(line.split(";")[0].toLowerCase());
+            }
+            r.close();
+        }
         // Negateurs
         r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Negations.txt")));
         while ((line=r.readLine())!=null) Neg.add(line);
         r.close();
         // tt4j
-        String ch="/data/TreeTagger"; // sur le serveur: ch="/data/TreeTagger"
+        String ch="/TreeTagger";
+        if (prop.getProperty("TreeTagger.path")!=null) ch=prop.getProperty("TreeTagger.path");
         lm = new LemmatiseurHandler(ch);
     }
 
+    public static int compte(String str,String chaine)
+    {
+        chaine=chaine+"i";
+        String[] tb=chaine.split(str);
+        return (tb.length-1);
+    }
+    
     public int AllCaps(String tweet){
         int count=0;
         StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
@@ -112,14 +181,50 @@ public class CalculAttributs {
         return count;
     }
     
-    public int ComputeEmotion(String tweet, int i) throws FileNotFoundException, IOException, TreeTaggerException{
+    public int ComputeEmotionFEEL(String tweet, int i) throws FileNotFoundException, IOException, TreeTaggerException{
         int count=0;
         String lemme;
         StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
         while (st.hasMoreElements()){
             lemme=st.nextToken();
             if(lemme.contains("|")) lemme=lemme.split("|")[0];
-            if (al.get(i).contains(lemme)) count++;
+            if (alEmoFEEL.get(i).contains(lemme)) count++;
+        }
+        return count;
+    }
+    
+    public int ComputeEmotionAffects(String tweet, int i) throws FileNotFoundException, IOException, TreeTaggerException{
+        int count=0;
+        String lemme;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
+        while (st.hasMoreElements()){
+            lemme=st.nextToken();
+            if(lemme.contains("|")) lemme=lemme.split("|")[0];
+            if (alEmoAffects.get(i).contains(lemme)) count++;
+        }
+        return count;
+    }
+    
+    public int ComputeEmotionDiko(String tweet, int i) throws FileNotFoundException, IOException, TreeTaggerException{
+        int count=0;
+        String lemme;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
+        while (st.hasMoreElements()){
+            lemme=st.nextToken();
+            if(lemme.contains("|")) lemme=lemme.split("|")[0];
+            if (alEmoDiko.get(i).contains(lemme)) count++;
+        }
+        return count;
+    }
+    
+    public int ComputeZscore(String tweet, int index, double seuil) throws FileNotFoundException, IOException, TreeTaggerException{
+        int count=0;
+        String lemme;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
+        while (st.hasMoreElements()){
+            lemme=st.nextToken();
+            if(lemme.contains("|")) lemme=lemme.split("|")[0];
+            if (alZ.contains(lemme) && Double.parseDouble(alZc.get(index).get(alZ.indexOf(lemme)))>seuil) count++;
         }
         return count;
     }

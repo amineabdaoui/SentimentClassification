@@ -1,19 +1,15 @@
 package org.advanse.deft;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.StringTokenizer;
+import java.util.Random;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.SMO;
 import weka.core.Instances;
@@ -24,140 +20,110 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 
 public class main
 {
-  private static int folds = 10;
-  //private static int nch=6;
+    private static int nbFolds=0;
+    private static ArrayList<Object> MiP=new ArrayList<>();
+    private static ArrayList<Object> MiR=new ArrayList<>();
+    private static ArrayList<Object> MiF=new ArrayList<>();
+    private static ArrayList<Object> MaP=new ArrayList<>();
+    private static ArrayList<Object> MaR=new ArrayList<>();
+    private static ArrayList<Object> MaF=new ArrayList<>();
   
   public static void main(String[] args)
     throws Exception
-  {      
-    String benchmark="AVoirALire";
-    int fold=Integer.parseInt(args[0]);
-    BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("data//"+benchmark+"//train"+fold+".arff"), "UTF-8"));
-    BufferedReader rt = new BufferedReader(new InputStreamReader(new FileInputStream("data//"+benchmark+"//test"+fold+".arff"), "UTF-8"));
-    
-    Instances train = new Instances(r);
-    Instances test = new Instances(rt);
-    
-    Zscore z = new Zscore(train);
-    z.BuildFile();
-    
-    SMO classifier = new SMO();
-    
-    train.setClassIndex(train.numAttributes() - 1);
-    test.setClassIndex(test.numAttributes() - 1);
-    /*
-    System.out.println("Générer les Nchars");
-    LemmatiseurHandler lm = new LemmatiseurHandler("/data/TreeTagger");
-    ArrayList<String> alChar = new ArrayList<String>();
-    int min=5,max=5;
-    String term, nchar, tweet;
-    for (int i=0; i<train.numInstances(); i++){
-        tweet=train.instance(i).stringValue(train.attribute("_tweet"));
-        tweet=Pretraitements.ReplaceLink(tweet);
-        tweet=Pretraitements.ReplaceUserTag(tweet);
-        tweet=tweet.toLowerCase();
-        tweet=Lemmatiser(tweet, lm);
-        StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
-        while (st.hasMoreElements()) {
-            term=st.nextToken();
-            for (int lg=min; lg<=max; lg++){
-                for (int index=lg; index<=term.length(); index++){
-                    nchar = term.substring(index-lg, index);
-                    if (!alChar.contains(nchar)) alChar.add(nchar);
-                }
-            }
-        }
-    }
-    System.out.println("  alChar.size=" + alChar.size());
-    */
-    System.out.println("Construction objet ConstructionARFF..");
-    ConstructionARFF obj = new ConstructionARFF();
-    System.out.println("Construction train ARFF..");
-    train = obj.ConstructionInstances(train/*,alChar*/);
-    System.out.println("Construction test ARFF..");
-    test = obj.ConstructionInstances(test/*,alChar*/);
-    System.out.println("  Train.numAttributes = " + train.numAttributes());
-    System.out.println("  Test.numAttributes = " + test.numAttributes());
-    
-    StringToWordVector filter = Tokenisation.WordNgrams(1,2);
-    filter.setInputFormat(train);
-    train = Filter.useFilter(train, filter);
-    test = Filter.useFilter(test, filter);
-    train.setClass(train.attribute("_class"));
-    test.setClass(train.attribute("_class"));
-    System.out.println("  numAttributes Après StringToWordVector = " + train.numAttributes());
-    
-    double macroPrecision, macroRappel, macroFmesure;
-    PrintWriter w = new PrintWriter(new BufferedWriter(new FileWriter("results//"+benchmark+"//Best_"+(fold-1)+".txt")));
-    DecimalFormat twoDForm = new DecimalFormat("#.##");
-    /*
-    AttributeSelection f = SelectionAttributs.InfoGainAttributeEval(train);
-    f.setInputFormat(train);
-    train = Filter.useFilter(train, f);
-    test =  Filter.useFilter(test, f);*/
-    
-    //classifier.setC(0.32);
-    classifier.buildClassifier(train);
+  {     
+        String propPath="src\\main\\java\\properties\\config.properties";
+        Properties prop = new Properties();
+	InputStream input = new FileInputStream(propPath);
+        prop.load(input);
         
-    // Calculer les micro et macro mesures    
-    Evaluation eTest = new Evaluation(train);
-    eTest.evaluateModel(classifier, test);
-    macroPrecision=0; macroRappel=0; macroFmesure=0;
-    for (int i=0; i<train.attribute("_class").numValues(); i++){
-        macroPrecision+=eTest.precision(i);
-        macroRappel+=eTest.recall(i);
-        macroFmesure+=eTest.fMeasure(i);
-    }
-    macroPrecision=macroPrecision/train.attribute("_class").numValues();
-    macroRappel=macroRappel/train.attribute("_class").numValues();
-    macroFmesure=macroFmesure/train.attribute("_class").numValues();
-    // Enregistrer les résultats
-    w.println(roundTwoDecimals(eTest.weightedPrecision())+" & "+roundTwoDecimals(eTest.weightedRecall())+" & "+roundTwoDecimals(eTest.weightedFMeasure())+" & "+roundTwoDecimals(macroPrecision)+" & "+roundTwoDecimals(macroRappel)+" & "+roundTwoDecimals(macroFmesure));
-    w.flush();
-    
-    /*
-    Instances trainS=train;
-    Instances testS=test;
-    
-    // Estimation du nombre d'attributs
-    System.out.println("AttributeSelection ");
-    // Selection d'attributs    
-    for (int c=0; c<=trainS.numAttributes(); c=c+10){
-        train = trainS;
-        test = testS;
-        AttributeSelection f = SelectionAttributs.InfoGainAttributeEval(train, c);
-        f.setInputFormat(train);
-        train = Filter.useFilter(train, f);
-        test =  Filter.useFilter(test, f);
-    
-        classifier.buildClassifier(train);
-        double macroPrecision, macroRappel, macroFmesure;
-        PrintWriter w = new PrintWriter(new BufferedWriter(new FileWriter("results//"+benchmark+"//NumAttributs"+c+"_"+(fold-1)+".txt")));
-    
-        // Calculer les micro et macro mesures    
-        Evaluation eTest = new Evaluation(train);
-        eTest.evaluateModel(classifier, test);
-        macroPrecision=0; macroRappel=0; macroFmesure=0;
-        for (int i=0; i<train.attribute("_class").numValues(); i++){
-            macroPrecision+=eTest.precision(i);
-            macroRappel+=eTest.recall(i);
-            macroFmesure+=eTest.fMeasure(i);
+        BufferedReader r, rt;
+        Instances train, test = null;
+        
+        r = new BufferedReader(new InputStreamReader(new FileInputStream(prop.getProperty("Data.trainPath")), "UTF-8"));
+        train = new Instances(r);
+        train.setClassIndex(train.numAttributes() - 1);
+        ConstructionARFF obj = new ConstructionARFF(propPath);
+        train = obj.ConstructionInstances(train);
+        
+        if (prop.getProperty("Data.testPath").length()>0){
+            rt = new BufferedReader(new InputStreamReader(new FileInputStream(prop.getProperty("Data.testPath")), "UTF-8"));
+            test = new Instances(rt);
+            test.setClassIndex(test.numAttributes() - 1);
+            test = obj.ConstructionInstances(test);
         }
-        macroPrecision=macroPrecision/train.attribute("_class").numValues();
-        macroRappel=macroRappel/train.attribute("_class").numValues();
-        macroFmesure=macroFmesure/train.attribute("_class").numValues();
-        // Enregistrer les résultats
-        w.println(c+" & "+roundTwoDecimals(eTest.weightedPrecision())+" & "+roundTwoDecimals(eTest.weightedRecall())+" & "+roundTwoDecimals(eTest.weightedFMeasure())+" & "+roundTwoDecimals(macroPrecision)+" & "+roundTwoDecimals(macroRappel)+" & "+roundTwoDecimals(macroFmesure));
-        w.flush();
-    }
-    /*
-    // Estimation du paramètre C
-    for (double c=0; c<=2; c=c+0.001){
-        // Contstruire le classifieur
+        else nbFolds=Integer.parseInt(prop.getProperty("Data.nbFolds"));
+        System.out.println("  Number of selected attributes = " + train.numAttributes());
+        
+        if (nbFolds==0) Run(train,test,propPath);
+        else{
+            Instances data=train;
+            Random rand = new Random();   // create seeded number generator
+            data.randomize(rand);        // randomize data with number generator
+            data.setClass(data.attribute("_class"));
+            data.stratify(nbFolds);
+            for (int f=0; f<nbFolds; f++){
+                System.out.println();
+                System.out.println("######## Fold"+(f+1)+" ########");
+                train = data.trainCV(nbFolds,f);
+                test = data.testCV(nbFolds,f);
+                Run(train,test,propPath);
+            }
+            System.out.println();
+            System.out.println("######## Global results ########");
+            double mip=0, mir=0, mif=0, map=0, mar=0, maf=0;
+            for (int i=0;i<nbFolds;i++){
+                mip+=(Double) MiP.get(i);
+                mir+=(Double) MiR.get(i);
+                mif+=(Double) MiF.get(i);
+                map+=(Double) MaP.get(i);
+                mar+=(Double) MaR.get(i);
+                maf+=(Double) MaF.get(i);
+            }
+            System.out.println("    miP="+roundTwoDecimals(mip/nbFolds));
+            System.out.println("    miR="+roundTwoDecimals(mir/nbFolds));
+            System.out.println("    miF="+roundTwoDecimals(mif/nbFolds));
+            System.out.println("    maP="+roundTwoDecimals(map/nbFolds));
+            System.out.println("    maR="+roundTwoDecimals(mar/nbFolds));
+            System.out.println("    maF="+roundTwoDecimals(maf/nbFolds));
+        }
+  }
+  
+  public static void Run(Instances train, Instances test,String propPath) throws Exception{
+        Properties prop = new Properties();
+	InputStream input = new FileInputStream(propPath);
+        prop.load(input);
+        StringToWordVector filter = Tokenisation.WordNgrams(propPath);
+        filter.setInputFormat(train);
+        train = Filter.useFilter(train, filter);
+        test = Filter.useFilter(test, filter);
+        train.setClass(train.attribute("_class"));
+        test.setClass(train.attribute("_class"));
+        System.out.println("  Number of attributes after Tokenization = " + train.numAttributes());
+        
+        double macroPrecision, macroRappel, macroFmesure;
+        
+        AttributeSelection f;
+        if (prop.getProperty("FeatureSelection.percentageAttributes").equalsIgnoreCase("ig")){
+            f = SelectionAttributs.InfoGainAttributeEval(train);
+            f.setInputFormat(train);
+            train = Filter.useFilter(train, f);
+            test =  Filter.useFilter(test, f);
+        }
+        else if (Integer.parseInt(prop.getProperty("FeatureSelection.percentageAttributes"))<100){
+            double numberOfAtt=100;
+            numberOfAtt = Double.parseDouble(prop.getProperty("FeatureSelection.percentageAttributes"))/numberOfAtt;
+            f = SelectionAttributs.InfoGainAttributeEval(train,(int) Math.round(numberOfAtt));
+            f.setInputFormat(train);
+            train = Filter.useFilter(train, f);
+            test =  Filter.useFilter(test, f);
+        }
+        System.out.println("  Number of attributes after Feature Selection = " + train.numAttributes());
+        
+        SMO classifier = new SMO();
+        double c = Double.parseDouble(prop.getProperty("SVM.CompexityParameter"));
         classifier.setC(c);
         classifier.buildClassifier(train);
         
-        // Calculer les micro et macro mesures    
         Evaluation eTest = new Evaluation(train);
         eTest.evaluateModel(classifier, test);
         macroPrecision=0; macroRappel=0; macroFmesure=0;
@@ -170,12 +136,19 @@ public class main
         macroRappel=macroRappel/train.attribute("_class").numValues();
         macroFmesure=macroFmesure/train.attribute("_class").numValues();
         // Enregistrer les résultats
-        w.println(c+" & "+roundTwoDecimals(eTest.weightedPrecision())+" & "+roundTwoDecimals(eTest.weightedRecall())+" & "+roundTwoDecimals(eTest.weightedFMeasure())+" & "+roundTwoDecimals(macroPrecision)+" & "+roundTwoDecimals(macroRappel)+" & "+roundTwoDecimals(macroFmesure));
-        w.flush();
-    }
-    */
+        System.out.println("    miP="+roundTwoDecimals(eTest.weightedPrecision()));
+        MiP.add(eTest.weightedPrecision());
+        System.out.println("    miR="+roundTwoDecimals(eTest.weightedRecall()));
+        MiR.add(eTest.weightedRecall());
+        System.out.println("    miF="+roundTwoDecimals(eTest.weightedFMeasure()));
+        MiF.add(eTest.weightedFMeasure());
+        System.out.println("    maP="+roundTwoDecimals(macroPrecision));
+        MaP.add(macroPrecision);
+        System.out.println("    maR="+roundTwoDecimals(macroRappel));
+        MaR.add(macroRappel);
+        System.out.println("    maF="+roundTwoDecimals(macroFmesure));
+        MaF.add(macroFmesure);
   }
-  
   
   public static String Lemmatiser(String tweet, LemmatiseurHandler lm)
     throws Exception
@@ -207,7 +180,6 @@ public class main
       saver.setFile(new File(file));
       saver.writeBatch();
   }
-  
   
   public static String roundTwoDecimals(double d) {
     double r=d*100;

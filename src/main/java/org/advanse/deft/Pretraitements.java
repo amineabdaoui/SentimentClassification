@@ -19,10 +19,10 @@ public class Pretraitements {
     static String resourcePath = "ressources//";
     
     // If you want to access the resources directly in the jar
-    static Boolean resourceInJar = false;
+    private static Boolean resourceInJar = false;
     //static String resourcePath = "ressources";
-    
-    static String tweet = "non je n'aime pas voilà mdr";
+    private static String tweet = "non je n'aime pas voilà mdr";
+    private static final int nbSlangTermes=311;
     
     public static void main(String args[]) throws IOException {
         System.out.println(ReplaceArgots(tweet));
@@ -41,7 +41,7 @@ public class Pretraitements {
     public static String ReplaceArgots(String tweet) throws IOException{
         String res;
         //Etape1 : Lire les argots
-        String Argot[][] = new String[311][2];
+        String Argot[][] = new String[nbSlangTermes][2];
         BufferedReader r = null;
         
         // Check if it has to access the resource directly in the jar file (for war deployment)

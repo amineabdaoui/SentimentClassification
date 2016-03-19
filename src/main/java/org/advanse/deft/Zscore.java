@@ -51,10 +51,10 @@ public class Zscore {
         this.threshold = threshold;
     }
     
-    public void BuildFile() throws IOException{
+    public void BuildFile(String name) throws IOException{
         String terme;
         termes = new ArrayList<String>();
-        PrintWriter w = new PrintWriter(new BufferedWriter(new FileWriter("ressources//ZscoresAVoirALire.txt")));
+        PrintWriter w = new PrintWriter(new BufferedWriter(new FileWriter("ressources//"+name+".txt")));
         for (Document doc:documents){
             StringTokenizer st = new StringTokenizer(doc.getDocument(), " ");
             while (st.hasMoreTokens()){
@@ -119,10 +119,7 @@ public class Zscore {
       public static void main(String[] args)
     throws Exception
   {
-    BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\amin.abdaoui\\Documents\\NetBeansProjects\\DEFT\\AVoirALireDEFT07\\train.arff"), "UTF-8"));
-    Instances train = new Instances(r);
-    Zscore z = new Zscore(train);
-    z.BuildFile();
+    
     
   }
     
