@@ -78,7 +78,7 @@ public class ConstructionARFF {
             if (prop.getProperty("SyntacticFeatures.presenceSmileys").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_emoticoneNeg"), ((ca.EmoticonesNeg(tweet))? 1 : 0));
             if (prop.getProperty("SyntacticFeatures.countHashtags").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_hashtags"), ca.CountHashtag(tweet));
             if (prop.getProperty("SyntacticFeatures.countNegators").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_countNegators"), (ca.CountNegation(tweet)));
-            if (prop.getProperty("SyntacticFeatures.presencePartOfSpeechTags").equalsIgnoreCase("yes")) for (int j=0; i<POS.size(); i++) newData.instance(i).setValue(newData.attribute("__"+POS.get(j)), ca.POS(tweet,POS.get(j)));
+            if (prop.getProperty("SyntacticFeatures.presencePartOfSpeechTags").equalsIgnoreCase("yes")) for (int j=0; j<POS.size(); j++) newData.instance(i).setValue(newData.attribute("__"+POS.get(j)), ca.POS(tweet,POS.get(j)));
             // Preprocessings2
             if (prop.getProperty("Preprocessings.lowercase").equalsIgnoreCase("yes")) tweet = tweet.toLowerCase();
             if (prop.getProperty("Preprocessings.lemmatize").equalsIgnoreCase("yes")) tweet = ca.Lemmatiser(tweet);
