@@ -1,4 +1,4 @@
-package org.advanse.sentimentclassification;
+package fr.lirmm.advanse.SentimentClassification;
 
 import java.io.BufferedReader;
 import java.io.File;

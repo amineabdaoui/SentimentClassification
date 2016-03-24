@@ -1,4 +1,4 @@
-package org.advanse.sentimentclassification;
+package fr.lirmm.advanse.SentimentClassification;
 
 /**
  *

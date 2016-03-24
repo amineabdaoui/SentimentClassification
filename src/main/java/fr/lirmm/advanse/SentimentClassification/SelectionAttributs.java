@@ -1,4 +1,4 @@
-package org.advanse.sentimentclassification;
+package fr.lirmm.advanse.SentimentClassification;
 
 import weka.attributeSelection.GainRatioAttributeEval;
 import weka.attributeSelection.InfoGainAttributeEval;
