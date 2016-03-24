@@ -1,4 +1,4 @@
-package org.advanse.deft;
+package org.advanse.sentimentclassification;
 
 import weka.attributeSelection.GainRatioAttributeEval;
 import weka.attributeSelection.InfoGainAttributeEval;

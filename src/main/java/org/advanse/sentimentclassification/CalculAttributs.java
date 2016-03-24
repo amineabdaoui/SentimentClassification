@@ -1,4 +1,4 @@
-package org.advanse.deft;
+package org.advanse.sentimentclassification;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import static org.advanse.deft.ConstructionARFF.nbClassesFEEL;
+import static org.advanse.sentimentclassification.ConstructionARFF.nbClassesFEEL;
 import org.annolab.tt4j.TreeTaggerException;
 
 

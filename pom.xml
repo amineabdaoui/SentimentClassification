@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <name>SentimentClassification</name>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.advanse</groupId>
-    <artifactId>deft</artifactId>
+    <artifactId>SentimentClassification</artifactId>
     <version>0.1</version>
     <packaging>jar</packaging>
     <url>https://gite.lirmm.fr/advanse/</url>
@@ -13,7 +14,7 @@
     </properties>
     
     <build>
-        <finalName>deft</finalName>
+        <finalName>sentiment-classification</finalName>
         <!-- Put the argo.txt file in the jar file -->
         <resources>
             <resource>
@@ -36,7 +37,7 @@
                   <manifest>
                     <addClasspath>true</addClasspath>
                     <classpathPrefix>lib/</classpathPrefix>
-                    <mainClass>org.advanse.deft.main</mainClass>
+                    <mainClass>org.advanse.sentimentclassification.main</mainClass>
                   </manifest>
                 </archive>
               </configuration>

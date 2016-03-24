@@ -1,4 +1,4 @@
-package org.advanse.deft;
+package org.advanse.sentimentclassification;
 
 import java.io.File;
 import java.io.FileInputStream;
