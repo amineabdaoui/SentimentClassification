@@ -19,7 +19,7 @@ public class Pretraitements {
     static String resourcePath = "ressources//";
     
     // If you want to access the resources directly in the jar
-    private static Boolean resourceInJar = false;
+    private static Boolean resourceInJar = true;
     //static String resourcePath = "ressources";
     private static String tweet = "non je n'aime pas voilà mdr";
     private static final int nbSlangTermes=311;
