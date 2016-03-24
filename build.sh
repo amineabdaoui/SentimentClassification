@@ -7,4 +7,4 @@ mvn clean package
 #mvn dependency:purge-local-repository
 mvn install:install-file -Dfile=/home/emonet/java_workspace/SentimentClassification/target/sentiment-classification.jar -DgroupId=org.advanse -DartifactId=SentimentClassification -Dversion=0.1 -Dpackaging=jar -DgeneratePom=true
         
-cp target/SentimentClassification.jar /opt/tomcat/lib/SentimentClassification.jar
+cp target/sentiment-classification.jar /opt/tomcat/lib/sentiment-classification.jar
