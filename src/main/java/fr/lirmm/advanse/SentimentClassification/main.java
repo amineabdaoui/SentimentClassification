@@ -31,7 +31,9 @@ public class main
   public static void main(String[] args)
     throws Exception
   {     
-        String propPath="src\\main\\java\\properties\\config.properties";
+        String propPath;
+        if (args[0]==null) propPath="src\\main\\java\\properties\\config.properties";
+        else propPath=args[0];
         Properties prop = new Properties();
 	InputStream input = new FileInputStream(propPath);
         prop.load(input);
