@@ -118,7 +118,17 @@ public class Pretraitements {
         boolean Sepa=false, Nega=false;
         String s, tok;
         ArrayList<String> Neg = new ArrayList<>();
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
+        
+        BufferedReader r = null;
+        // Check if it has to access the resource directly in the jar file (for war deployment)
+        if (resourceInJar == true) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream in = classLoader.getResourceAsStream("Negations.txt");
+            r = new BufferedReader(new InputStreamReader(in));
+        } else {
+            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
+        }
+        
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
         StringTokenizer st = new StringTokenizer(tweet, " \n         .,;:'‘’\"?[]!-_\\/“<>$&®´…«»1234567890", true);
@@ -151,7 +161,17 @@ public class Pretraitements {
         boolean Sepa=false, Nega=false;
         String s, tok, pNeg="neg";
         ArrayList<String> Neg = new ArrayList<>();
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
+        
+        BufferedReader r = null;
+        // Check if it has to access the resource directly in the jar file (for war deployment)
+        if (resourceInJar == true) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream in = classLoader.getResourceAsStream("Negations.txt");
+            r = new BufferedReader(new InputStreamReader(in));
+        } else {
+            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
+        }
+        
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
         StringTokenizer st = new StringTokenizer(tweet, " \n         .,;:'‘’\"()?[]!-_\\/“<>$&®´…«»1234567890", true);
@@ -184,7 +204,17 @@ public class Pretraitements {
         boolean Sepa=false, Nega=false;
         String s, sn, tok, pNeg="neg";
         ArrayList<String> Neg = new ArrayList<>();
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
+        
+        BufferedReader r = null;
+        // Check if it has to access the resource directly in the jar file (for war deployment)
+        if (resourceInJar == true) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream in = classLoader.getResourceAsStream("Negations.txt");
+            r = new BufferedReader(new InputStreamReader(in));
+        } else {
+            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
+        }
+        
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
         StringTokenizer st = new StringTokenizer(tweet, " \n         .,;:'‘’\"()?[]!-_\\/“<>$&®´…«»1234567890", true);

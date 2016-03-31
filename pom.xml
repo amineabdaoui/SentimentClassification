@@ -23,6 +23,7 @@
                 <directory>${basedir}/ressources</directory>
                 <includes>
                     <include>argot.txt</include>
+                    <include>Negations.txt</include>
                 </includes>
             </resource>
         </resources>
