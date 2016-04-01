@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# A script to build the sentiment-classification jar. Then add it to maven local repo and tomcat classpath
+# A script to build the sentiment-classification jar. Then add it to maven local repo
 
 mvn clean package
 
