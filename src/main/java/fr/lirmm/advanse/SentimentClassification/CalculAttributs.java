@@ -140,7 +140,9 @@ public class CalculAttributs {
             r.close();
         }
         // Negateurs
-        r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Negations.txt")));
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream in = classLoader.getResourceAsStream("Negations.txt");
+        r = new BufferedReader(new InputStreamReader(in));
         while ((line=r.readLine())!=null) Neg.add(line);
         r.close();
         // tt4j
