@@ -38,7 +38,7 @@
                   <manifest>
                     <addClasspath>true</addClasspath>
                     <classpathPrefix>lib/</classpathPrefix>
-                    <mainClass>org.advanse.sentimentclassification.main</mainClass>
+                    <mainClass>fr.lirmm.advanse.SentimentClassification.main</mainClass>
                   </manifest>
                 </archive>
               </configuration>
