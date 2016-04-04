@@ -8,7 +8,7 @@ It uses:
 * tt4j 1.1.2
 * Maven 3.0.5
 
-Download TreeTagger from this website: http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
+Download TreeTagger on your computer from this website: http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
 
 ## Deploy it
 
@@ -16,7 +16,7 @@ Run the `build.sh` script, it will build it using Maven and add the jar to the l
 
 ## Run it
 
-Update the `config.properties` file to set your configuration. Then run sentiment-classification.jar with the `config.properties` file path as argument.
+Update the `config.properties` file to set your configuration. Then run `sentiment-classification.jar` with the `config.properties` file path as argument.
 
 
 
