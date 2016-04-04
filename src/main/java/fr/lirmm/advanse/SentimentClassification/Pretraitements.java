@@ -83,6 +83,7 @@ public class Pretraitements {
         String result="";
         char c1=' ';
         char c2=' ';
+        tweet = tweet.toLowerCase();
         for (int i=0; i<tweet.length(); i++){
             if (tweet.charAt(i)!=c1 || tweet.charAt(i)!=c2) result+=tweet.charAt(i);
             c1=c2;
