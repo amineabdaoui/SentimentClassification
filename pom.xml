@@ -50,6 +50,8 @@
               <version>2.3</version>
               <configuration>
                 <createDependencyReducedPom>false</createDependencyReducedPom>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+                <shadedClassifierName>main</shadedClassifierName> <!-- Can be any name that makes sense -->
               </configuration>
               <executions>
                 <execution>
