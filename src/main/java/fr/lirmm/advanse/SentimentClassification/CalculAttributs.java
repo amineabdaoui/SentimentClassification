@@ -51,7 +51,7 @@ public class CalculAttributs {
         // FEEL
         if (prop.getProperty("Lexicons.feelPol").equalsIgnoreCase("yes") || prop.getProperty("Lexicons.feelEmo").equalsIgnoreCase("yes")){
             r = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream("FEEL.txt")));
-            for (int i=1;i<=7;i++) alEmoFEEL.add(new ArrayList<String>());
+            for (int i=1;i<=nbClassesFEEL;i++) alEmoFEEL.add(new ArrayList<String>());
             while ((line=r.readLine())!=null){
                 // Polarité
                 switch (line.split(";")[2]) {
