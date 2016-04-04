@@ -34,7 +34,7 @@ public class ConstructionARFF {
     }
     
     public Instances ConstructionInstances(Instances data) throws Exception{
-        String tweet, tweetLem;
+        String tweet, tweetS, tweetLem;
         Instances newData = new Instances(data);
         Properties prop = new Properties();
 	InputStream input = new FileInputStream(this.propPath);
@@ -65,6 +65,7 @@ public class ConstructionARFF {
         // Data
         for (int i=0; i<newData.numInstances(); i++){
             tweet = newData.instance(i).stringValue(data.attribute("_text"));
+            tweetS = tweet;
             // Preprocessings1
             if (prop.getProperty("Preprocessings.normalizeHyperlinks").equalsIgnoreCase("yes")) tweet = Pretraitements.ReplaceLink(tweet);
             if (prop.getProperty("Preprocessings.normalizeEmails").equalsIgnoreCase("yes")) tweet = Pretraitements.ReplaceMail(tweet);
@@ -84,8 +85,8 @@ public class ConstructionARFF {
             if (prop.getProperty("Preprocessings.lemmatize").equalsIgnoreCase("yes")) tweet = ca.Lemmatiser(tweet);
             newData.instance(i).setValue(newData.attribute("_text"), tweet);
             // Lexicons
-            tweetLem = ca.Lemmatiser(tweet);
-            tweetLem = tweetLem.toLowerCase();
+            tweetLem = tweetS.toLowerCase();
+            tweetLem = ca.Lemmatiser(tweetLem);
             if (prop.getProperty("Lexicons.feelPol").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_countPosFEEL"), ca.ComputePosFEEL(tweetLem));
             if (prop.getProperty("Lexicons.feelPol").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_countNegFEEL"), ca.ComputeNegFEEL(tweetLem));
             if (prop.getProperty("Lexicons.polarimotsPol").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_countPosPolarimots"), ca.ComputePosPolarimots(tweetLem));
