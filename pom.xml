@@ -22,8 +22,7 @@
                 <filtering>false</filtering>
                 <directory>${basedir}/ressources</directory>
                 <includes>
-                    <include>argot.txt</include>
-                    <include>Negations.txt</include>
+                    <include>*.txt</include>
                 </includes>
             </resource>
         </resources>
@@ -43,11 +42,15 @@
                 </archive>
               </configuration>
             </plugin>
-            <!-- Correctly load dependencies -->
+            <!-- Include the jar dependencies in the sentiment-classification.jar (to make sure it will resolves it anywhere)
+            Note that it will generate a "original-sentiment-classification.jar" that do not include the dependencies jar -->
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-shade-plugin</artifactId>
               <version>2.3</version>
+              <configuration>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+              </configuration>
               <executions>
                 <execution>
                   <phase>package</phase>
