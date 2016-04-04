@@ -6,7 +6,7 @@
     <artifactId>SentimentClassification</artifactId>
     <version>0.1</version>
     <packaging>jar</packaging>
-    <url>https://gite.lirmm.fr/advanse/</url>
+    <url>https://gite.lirmm.fr/advanse/SentimentClassification</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -15,7 +15,7 @@
     
     <build>
         <finalName>sentiment-classification</finalName>
-        <!-- Put the argo.txt file in the jar file -->
+        <!-- Put all .txt files from the /ressources dir in the jar file -->
         <resources>
             <resource>
                 <targetPath>.</targetPath>
