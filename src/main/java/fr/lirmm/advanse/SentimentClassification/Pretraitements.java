@@ -15,12 +15,6 @@ import java.util.StringTokenizer;
  */
 public class Pretraitements {
   
-    /* the path to access resources */
-    static String resourcePath = "ressources//";
-    
-    // If you want to access the resources directly in the jar
-    private static Boolean resourceInJar = true;
-    //static String resourcePath = "ressources";
     private static String tweet = "non je n'aime pas voilà mdr";
     private static final int nbSlangTermes=311;
     
@@ -44,14 +38,9 @@ public class Pretraitements {
         String Argot[][] = new String[nbSlangTermes][2];
         BufferedReader r = null;
         
-        // Check if it has to access the resource directly in the jar file (for war deployment)
-        if (resourceInJar == true) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream in = classLoader.getResourceAsStream("argot.txt");
-            r = new BufferedReader(new InputStreamReader(in));
-        } else {
-            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "argot.txt")));   
-        }
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        r = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream("argot.txt")));
+
         String line;
         int i=0;
         while ((line=r.readLine())!=null) {
@@ -119,15 +108,8 @@ public class Pretraitements {
         String s, tok;
         ArrayList<String> Neg = new ArrayList<>();
         
-        BufferedReader r = null;
-        // Check if it has to access the resource directly in the jar file (for war deployment)
-        if (resourceInJar == true) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream in = classLoader.getResourceAsStream("Negations.txt");
-            r = new BufferedReader(new InputStreamReader(in));
-        } else {
-            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
-        }
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        BufferedReader r = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream("Negations.txt")));
         
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
@@ -162,15 +144,8 @@ public class Pretraitements {
         String s, tok, pNeg="neg";
         ArrayList<String> Neg = new ArrayList<>();
         
-        BufferedReader r = null;
-        // Check if it has to access the resource directly in the jar file (for war deployment)
-        if (resourceInJar == true) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream in = classLoader.getResourceAsStream("Negations.txt");
-            r = new BufferedReader(new InputStreamReader(in));
-        } else {
-            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
-        }
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        BufferedReader r = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream("Negations.txt")));
         
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
@@ -205,15 +180,8 @@ public class Pretraitements {
         String s, sn, tok, pNeg="neg";
         ArrayList<String> Neg = new ArrayList<>();
         
-        BufferedReader r = null;
-        // Check if it has to access the resource directly in the jar file (for war deployment)
-        if (resourceInJar == true) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream in = classLoader.getResourceAsStream("Negations.txt");
-            r = new BufferedReader(new InputStreamReader(in));
-        } else {
-            r = new BufferedReader(new InputStreamReader(new FileInputStream(resourcePath + "Negations.txt")));
-        }
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        BufferedReader r = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream("Negations.txt")));
         
         while ((s=r.readLine())!=null) Neg.add(s);
         r.close();
