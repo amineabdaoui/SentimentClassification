@@ -31,9 +31,8 @@ public class main
   public static void main(String[] args)
     throws Exception
   {     
-        String propPath;
-        if (args[0]==null) propPath="src\\main\\java\\properties\\config.properties";
-        else propPath=args[0];
+        String propPath="src\\main\\java\\properties\\config.properties";
+        //if (args[0]!=null) propPath=args[0];
         Properties prop = new Properties();
 	InputStream input = new FileInputStream(propPath);
         prop.load(input);
@@ -111,9 +110,9 @@ public class main
             train = Filter.useFilter(train, f);
             test =  Filter.useFilter(test, f);
         }
-        else if (Integer.parseInt(prop.getProperty("FeatureSelection.percentageAttributes"))<100){
+        else if (Double.parseDouble(prop.getProperty("FeatureSelection.percentageAttributes"))<100){
             double numberOfAtt=100;
-            numberOfAtt = Double.parseDouble(prop.getProperty("FeatureSelection.percentageAttributes"))/numberOfAtt;
+            numberOfAtt = (Double.parseDouble(prop.getProperty("FeatureSelection.percentageAttributes"))*train.numAttributes())/numberOfAtt;
             f = SelectionAttributs.InfoGainAttributeEval(train,(int) Math.round(numberOfAtt));
             f.setInputFormat(train);
             train = Filter.useFilter(train, f);

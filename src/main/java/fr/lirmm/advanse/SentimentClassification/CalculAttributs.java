@@ -106,7 +106,10 @@ public class CalculAttributs {
             r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Augustin-emo.txt")));
             ArrayList<String> alClass = new ArrayList<>();
             while ((line=r.readLine())!=null){
-                if (!alClass.contains(line.split(";")[1])) alClass.add(line.split(";")[1]);
+                if (!alClass.contains(line.split(";")[1])){
+                    alClass.add(line.split(";")[1]);
+                    alEmoAffects.add(new ArrayList<String>());
+                }
                 alEmoAffects.get(alClass.indexOf(line.split(";")[1])).add(line.split(";")[0].toLowerCase());
             }
             r.close();
@@ -134,7 +137,10 @@ public class CalculAttributs {
             r = new BufferedReader(new InputStreamReader(new FileInputStream("ressources//Diko-emo.txt")));
             ArrayList<String> alC = new ArrayList<>();
             while ((line=r.readLine())!=null){
-                if (!alC.contains(line.split(";")[1])) alC.add(line.split(";")[1]);
+                if (!alC.contains(line.split(";")[1])){
+                    alC.add(line.split(";")[1]);
+                    alEmoDiko.add(new ArrayList<String>());
+                }
                 alEmoDiko.get(alC.indexOf(line.split(";")[1])).add(line.split(";")[0].toLowerCase());
             }
             r.close();
@@ -149,11 +155,15 @@ public class CalculAttributs {
         lm = new LemmatiseurHandler(ch);
     }
 
-    public static int compte(String str,String chaine)
+    public static int compte(String s,String chaine)
     {
-        chaine=chaine+"i";
-        String[] tb=chaine.split(str);
-        return (tb.length-1);
+        String str = new String(s);
+        int cpt=0;
+        while (str.contains(chaine)){
+            str = str.substring(str.indexOf(chaine)+1);
+            cpt++;
+        }
+        return cpt;
     }
     
     public int AllCaps(String tweet){
@@ -224,9 +234,39 @@ public class CalculAttributs {
         while (st.hasMoreElements()){
             lemme=st.nextToken();
             if(lemme.contains("|")) lemme=lemme.split("|")[0];
-            if (alZ.contains(lemme) && Double.parseDouble(alZc.get(index).get(alZ.indexOf(lemme)))>seuil) count++;
+            if (alZ.contains(lemme)){
+                if (Double.parseDouble(alZc.get(index).get(alZ.indexOf(lemme)))>seuil) count++;
+            }
         }
         return count;
+    }
+    
+    public double SumZscore(String tweet, int index, double seuil) throws FileNotFoundException, IOException, TreeTaggerException{
+        double somme=0;
+        String lemme;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
+        while (st.hasMoreElements()){
+            lemme=st.nextToken();
+            if(lemme.contains("|")) lemme=lemme.split("|")[0];
+            if (alZ.contains(lemme)){
+                somme+=Double.parseDouble(alZc.get(index).get(alZ.indexOf(lemme)));
+            }
+        }
+        return somme;
+    }
+    
+    public double MaxZscore(String tweet, int index, double seuil) throws FileNotFoundException, IOException, TreeTaggerException{
+        double max=0;
+        String lemme;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,;:'\"|()?!-_/<>‘’“”…«»•&#{[|`^@]}$*%1234567890", false);
+        while (st.hasMoreElements()){
+            lemme=st.nextToken();
+            if(lemme.contains("|")) lemme=lemme.split("|")[0];
+            if (alZ.contains(lemme)){
+                if (Double.parseDouble(alZc.get(index).get(alZ.indexOf(lemme)))>max) max=Double.parseDouble(alZc.get(index).get(alZ.indexOf(lemme)));
+            }
+        }
+        return max;
     }
     
     public int ComputePosFEEL(String tweet) throws FileNotFoundException, IOException, TreeTaggerException{
