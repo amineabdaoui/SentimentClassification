@@ -36,6 +36,8 @@ public class CalculAttributs {
     ArrayList<ArrayList<String>> alEmoFEEL = new ArrayList<>();
     ArrayList<ArrayList<String>> alEmoAffects = new ArrayList<>();
     ArrayList<ArrayList<String>> alEmoDiko = new ArrayList<>();
+    ArrayList<String> alWords = new ArrayList<>();
+    ArrayList<ArrayList<Float>> alEmbeddings = new ArrayList<>();
     private final ArrayList<String> Neg = new ArrayList<>();
     private LemmatiseurHandler lm;
     
@@ -191,6 +193,43 @@ public class CalculAttributs {
             if (t.equals(pos)) count++;
         }
         return count;
+    }
+    
+    public float ComputeWordEmbeddingMax(String tweet, int i){
+        float max=Float.MIN_VALUE;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,\"|?!", false);
+        int index;
+        while (st.hasMoreElements()){
+            index=alWords.indexOf(st.nextToken());
+            if (index>=0) if (alEmbeddings.get(i).get(index).floatValue()>max) max=alEmbeddings.get(i).get(index).floatValue();
+        }
+        return max;
+    }
+    
+    public float ComputeWordEmbeddingMin(String tweet, int i){
+        float min=Float.MAX_VALUE;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,\"|?!", false);
+        int index;
+        while (st.hasMoreElements()){
+            index=alWords.indexOf(st.nextToken());
+            if (index>=0) if (alEmbeddings.get(i).get(index).floatValue()<min) min=alEmbeddings.get(i).get(index).floatValue();
+        }
+        return min;
+    }
+    
+    public float ComputeWordEmbeddingAvg(String tweet, int i){
+        float avg=0;
+        float cpt=0;
+        StringTokenizer st = new StringTokenizer(tweet, " 	.,\"|?!", false);
+        int index;
+        while (st.hasMoreElements()){
+            index=alWords.indexOf(st.nextToken());
+            if (index>=0){
+                avg+=alEmbeddings.get(i).get(index).floatValue();
+                cpt++;
+            }
+        }
+        return avg/cpt;
     }
     
     public int ComputeEmotionFEEL(String tweet, int i) throws FileNotFoundException, IOException, TreeTaggerException{

@@ -21,6 +21,7 @@ public class ConstructionARFF {
     protected static final int nbClassesFEEL=7;
     protected static final int nbClassesAffects=45;
     protected static final int nbClassesDiko=1198;
+    protected static final int nbEmbeddings=100;
     private CalculAttributs ca;
     private String propPath;
     
@@ -40,6 +41,9 @@ public class ConstructionARFF {
         Properties prop = new Properties();
 	InputStream input = new FileInputStream(this.propPath);
         prop.load(input);
+        if (prop.getProperty("WordEmbeddings.max").equalsIgnoreCase("yes")) for (int j=0; j<nbEmbeddings; j++) newData.insertAttributeAt(new Attribute("_WordEmbeddingMax"+j), newData.numAttributes());
+        if (prop.getProperty("WordEmbeddings.min").equalsIgnoreCase("yes")) for (int j=0; j<nbEmbeddings; j++) newData.insertAttributeAt(new Attribute("_WordEmbeddingMin"+j), newData.numAttributes());
+        if (prop.getProperty("WordEmbeddings.avg").equalsIgnoreCase("yes")) for (int j=0; j<nbEmbeddings; j++) newData.insertAttributeAt(new Attribute("_WordEmbeddingAvg"+j), newData.numAttributes());
         if (prop.getProperty("SyntacticFeatures.countElongatedWords").equalsIgnoreCase("yes")) newData.insertAttributeAt(new Attribute("_numberElongatedWords"), newData.numAttributes());
         if (prop.getProperty("SyntacticFeatures.presencePunctuation").equalsIgnoreCase("yes")) newData.insertAttributeAt(new Attribute("_punctuation"), newData.numAttributes());
         if (prop.getProperty("SyntacticFeatures.countCapitalizations").equalsIgnoreCase("yes")) newData.insertAttributeAt(new Attribute("_allCaps"), newData.numAttributes());
@@ -72,6 +76,10 @@ public class ConstructionARFF {
             if (prop.getProperty("Preprocessings.normalizeEmails").equalsIgnoreCase("yes")) tweet = Pretraitements.ReplaceMail(tweet);
             if (prop.getProperty("Preprocessings.replacePseudonyms").equalsIgnoreCase("yes")) tweet = Pretraitements.ReplaceUserTag(tweet);
             if (prop.getProperty("Preprocessings.normalizeSlang").equalsIgnoreCase("yes")) tweet = Pretraitements.ReplaceArgots(tweet);
+            // Word Embeddings
+            if (prop.getProperty("WordEmbeddings.max").equalsIgnoreCase("yes")) for (int j=0; j<nbEmbeddings; j++) newData.instance(i).setValue(newData.attribute("_WordEmbeddingMax"+j), ca.ComputeWordEmbeddingMax(tweet, j));
+            if (prop.getProperty("WordEmbeddings.min").equalsIgnoreCase("yes")) for (int j=0; j<nbEmbeddings; j++) newData.instance(i).setValue(newData.attribute("_WordEmbeddingMin"+j), ca.ComputeWordEmbeddingMin(tweet, j));
+            if (prop.getProperty("WordEmbeddings.avg").equalsIgnoreCase("yes")) for (int j=0; j<nbEmbeddings; j++) newData.instance(i).setValue(newData.attribute("_WordEmbeddingAvg"+j), ca.ComputeWordEmbeddingAvg(tweet, j));
             // Syntactic features
             if (prop.getProperty("SyntacticFeatures.countElongatedWords").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_numberElongatedWords"), ca.ElongatedWords(tweet));
             if (prop.getProperty("SyntacticFeatures.presencePunctuation").equalsIgnoreCase("yes")) newData.instance(i).setValue(newData.attribute("_punctuation"), (tweet.contains("!") || tweet.contains("?"))? 1 : 0);
