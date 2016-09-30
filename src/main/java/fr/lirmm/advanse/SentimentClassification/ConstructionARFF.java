@@ -1,5 +1,6 @@
 package fr.lirmm.advanse.SentimentClassification;
 
+import fr.lirmm.advanse.SentimentClassification.CalculAttributs;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
