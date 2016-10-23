@@ -21,9 +21,9 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 public class main
 {
     private static int nbFolds=0;
-    private static ArrayList<Object> MiP=new ArrayList<>();
-    private static ArrayList<Object> MiR=new ArrayList<>();
-    private static ArrayList<Object> MiF=new ArrayList<>();
+    private static ArrayList<Object> WaP=new ArrayList<>();
+    private static ArrayList<Object> WaR=new ArrayList<>();
+    private static ArrayList<Object> WaF=new ArrayList<>();
     private static ArrayList<Object> MaP=new ArrayList<>();
     private static ArrayList<Object> MaR=new ArrayList<>();
     private static ArrayList<Object> MaF=new ArrayList<>();
@@ -71,18 +71,18 @@ public class main
             }
             System.out.println();
             System.out.println("######## Global results ########");
-            double mip=0, mir=0, mif=0, map=0, mar=0, maf=0;
+            double wap=0, war=0, waf=0, map=0, mar=0, maf=0;
             for (int i=0;i<nbFolds;i++){
-                mip+=(Double) MiP.get(i);
-                mir+=(Double) MiR.get(i);
-                mif+=(Double) MiF.get(i);
+                wap+=(Double) WaP.get(i);
+                war+=(Double) WaR.get(i);
+                waf+=(Double) WaF.get(i);
                 map+=(Double) MaP.get(i);
                 mar+=(Double) MaR.get(i);
                 maf+=(Double) MaF.get(i);
             }
-            System.out.println("    miP="+roundTwoDecimals(mip/nbFolds));
-            System.out.println("    miR="+roundTwoDecimals(mir/nbFolds));
-            System.out.println("    miF="+roundTwoDecimals(mif/nbFolds));
+            System.out.println("    miP="+roundTwoDecimals(wap/nbFolds));
+            System.out.println("    miR="+roundTwoDecimals(war/nbFolds));
+            System.out.println("    miF="+roundTwoDecimals(waf/nbFolds));
             System.out.println("    maP="+roundTwoDecimals(map/nbFolds));
             System.out.println("    maR="+roundTwoDecimals(mar/nbFolds));
             System.out.println("    maF="+roundTwoDecimals(maf/nbFolds));
@@ -138,11 +138,11 @@ public class main
         macroFmesure=macroFmesure/train.attribute("_class").numValues();
         // Enregistrer les résultats
         System.out.println("    miP="+roundTwoDecimals(eTest.weightedPrecision()));
-        MiP.add(eTest.weightedPrecision());
+        WaP.add(eTest.weightedPrecision());
         System.out.println("    miR="+roundTwoDecimals(eTest.weightedRecall()));
-        MiR.add(eTest.weightedRecall());
+        WaR.add(eTest.weightedRecall());
         System.out.println("    miF="+roundTwoDecimals(eTest.weightedFMeasure()));
-        MiF.add(eTest.weightedFMeasure());
+        WaF.add(eTest.weightedFMeasure());
         System.out.println("    maP="+roundTwoDecimals(macroPrecision));
         MaP.add(macroPrecision);
         System.out.println("    maR="+roundTwoDecimals(macroRappel));
